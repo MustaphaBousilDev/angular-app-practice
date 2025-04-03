@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="login-container">
+   <h2>Login</h2>
+
+   <div *ngIf="isLoggedIn" class="success-message">
+    <p>You have successful logged in!</p>
+    <button (click)="resetForm()">Logout</button>
+   </div>
+
+   <form
+      *ngIf="!isLoggedIn"
+      #loginForm="ngForm"
+      (ngSubmit)="onSubmit()"
+    >
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+         type="email" id="email" name="email"
+         [(ngModel)]="loginData.email" required #email="ngModel"
+         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+      >
+      <div class="error-message"
+       *ngIf="email.invalid && (email.dirty || email.touched || isSubmetted)" class="error-message">
+        <div *ngIf="email.errors?.['required']">
+          {{validationMessages.emailRequired}}
+        </div>
+        <div *ngIf="email.errors?.['pattern']">
+          {{ validationMessages.emailInvalid}}
+        </div>
+      </div>
+    </div>
+   </form>
+</div>
