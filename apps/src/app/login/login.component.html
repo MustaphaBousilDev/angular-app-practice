@@ -18,7 +18,13 @@
          [(ngModel)]="loginData.email" required #email="ngModel"
          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
       >
+      <!--
+        dirty------when user changed the value
+        touched---- has the input been focused and then blurred
+        *ngIf="email.errors?.['required'] ----- email is from #email="ngModel"
+      -->
       <div class="error-message"
+
        *ngIf="email.invalid && (email.dirty || email.touched || isSubmetted)" class="error-message">
         <div *ngIf="email.errors?.['required']">
           {{validationMessages.emailRequired}}
